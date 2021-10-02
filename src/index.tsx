@@ -2,11 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/index.css';
 import App from './App';
+import SqlAnswer from './pages/SqlAnswer'
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <SqlAnswer/>
+    {/*<App />*/}
   </React.StrictMode>,
   document.getElementById('root')
 );
