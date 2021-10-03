@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "../styles/SqlAnswer.css";
 import initSqlJs from "sql.js";
+import Button from '@mui/material/Button'
+import TextField from '@mui/material/TextField';
 
 // Required to let webpack 4 know it needs to copy the wasm file to our assets
 import sqlWasm from "sql.js/dist/sql-wasm.wasm";
+import {Container} from "@mui/material";
 
 export default function App() {
     const [db, setDb] = useState(null);
@@ -55,12 +58,19 @@ function SQLRepl({ db }) {
         <div className="App">
             <h1>SQL Learning React</h1>
 
-            <textarea
-                onChange={(e) => exec(e.target.value)}
-                placeholder="Enter some SQL. No inspiration ? Try “select sqlite_version()”"
-            ></textarea>
-
-            <pre className="error">{(error || "").toString()}</pre>
+            <Container>
+                {/*<textarea*/}
+                {/*    onChange={(e) => exec(e.target.value)}*/}
+                {/*    placeholder="Enter some SQL. No inspiration ? Try “select sqlite_version()”"*/}
+                {/*/>*/}
+                <TextField
+                    onChange={(e) => exec(e.target.value)}
+                    multiline
+                    fullWidth
+                />
+                <Button variant="contained">実行</Button>
+                <pre className="error">{(error || "").toString()}</pre>
+            </Container>
 
             <pre>
         {
