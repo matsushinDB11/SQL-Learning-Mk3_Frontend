@@ -40,6 +40,7 @@ export default function App() {
 function SQLRepl({ db }) {
     const [error, setError] = useState(null);
     const [results, setResults] = useState([]);
+    const [sql, setSql] = useState(null);
 
     function exec(sql) {
         try {
@@ -59,16 +60,16 @@ function SQLRepl({ db }) {
             <h1>SQL Learning React</h1>
 
             <Container>
-                {/*<textarea*/}
-                {/*    onChange={(e) => exec(e.target.value)}*/}
-                {/*    placeholder="Enter some SQL. No inspiration ? Try “select sqlite_version()”"*/}
-                {/*/>*/}
                 <TextField
-                    onChange={(e) => exec(e.target.value)}
+                    onChange={(e) => setSql(e.target.value)}
                     multiline
                     fullWidth
                 />
-                <Button variant="contained">実行</Button>
+                <Button variant="contained"
+                        onClick={() => exec(sql)}
+                >
+                    実行
+                </Button>
                 <pre className="error">{(error || "").toString()}</pre>
             </Container>
 
