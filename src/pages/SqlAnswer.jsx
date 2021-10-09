@@ -3,6 +3,13 @@ import "../styles/SqlAnswer.css";
 import initSqlJs from "sql.js";
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
 // Required to let webpack 4 know it needs to copy the wasm file to our assets
 import sqlWasm from "sql.js/dist/sql-wasm.wasm";
@@ -73,14 +80,12 @@ function SQLRepl({ db }) {
                 <pre className="error">{(error || "").toString()}</pre>
             </Container>
 
-            <pre>
         {
             // results contains one object per select statement in the query
             results.map(({ columns, values }, i) => (
                 <ResultsTable key={i} columns={columns} values={values} />
             ))
         }
-      </pre>
         </div>
     );
 }
@@ -91,27 +96,29 @@ function SQLRepl({ db }) {
  */
 function ResultsTable({ columns, values }) {
     return (
-        <table>
-            <thead>
-            <tr>
-                {columns.map((columnName, i) => (
-                    <td key={i}>{columnName}</td>
-                ))}
-            </tr>
-            </thead>
+        <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <TableHead>
+                <TableRow>
+                    {columns.map((columnName, i) => (
+                        <TableCell key={i} component="th">{columnName}</TableCell>
+                    ))}
+                </TableRow>
+                </TableHead>
 
-            <tbody>
-            {
-                // values is an array of arrays representing the results of the query
-                values.map((row, i) => (
-                    <tr key={i}>
-                        {row.map((value, i) => (
-                            <td key={i}>{value}</td>
-                        ))}
-                    </tr>
-                ))
-            }
-            </tbody>
-        </table>
+                <TableBody>
+                {
+                    // values is an array of arrays representing the results of the query
+                    values.map((row, i) => (
+                        <TableRow key={i}>
+                            {row.map((value, i) => (
+                                <TableCell key={i}>{value}</TableCell>
+                            ))}
+                        </TableRow>
+                    ))
+                }
+                </TableBody>
+        </Table>
+        </TableContainer>
     );
 }
