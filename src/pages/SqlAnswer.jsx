@@ -49,6 +49,7 @@ export default function App() {
 function SQLRepl({db}) {
     const [error, setError] = useState(null);
     const [results, setResults] = useState([]);
+    const [sql, setSql] = useState(null);
 
     function exec(sql) {
         try {
@@ -69,22 +70,24 @@ function SQLRepl({db}) {
 
             <Container>
                 <TextField
-                    onChange={(e) => exec(e.target.value)}
+                    onChange={(e) => setSql(e.target.value)}
                     multiline
                     fullWidth
                 />
-                <Button variant="contained">実行</Button>
+                <Button variant="contained"
+                        onClick={() => exec(sql)}
+                >
+                    実行
+                </Button>
                 <pre className="error">{(error || "").toString()}</pre>
             </Container>
 
-            <pre>
         {
             // results contains one object per select statement in the query
             results.map(({columns, values}, i) => (
                 <ResultsTable key={i} columns={columns} values={values}/>
             ))
         }
-      </pre>
         </div>
     );
 }
