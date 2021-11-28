@@ -9,13 +9,13 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
+    "@testing-library/react": "^12.1.2",
     "sql.js": "^1.6.2",
     "web-vitals": "^2.1.2"
   },
   "devDependencies": {
     "@craco/craco": "^6.4.2",
     "@testing-library/jest-dom": "^5.15.1",
-    "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
     "@types/eslint": "^8.2.0",
     "@types/jest": "^27.0.3",
@@ -63,6 +63,18 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "simple-git-hooks": {
+    "pre-commit": ". ./lint-staged-around"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx}": [
+      "prettier --write --loglevel=error",
+      "eslint --fix --quiet"
+    ],
+    "{public,src}/**/*.{html,gql,graphql,json}": [
+      "prettier --write --loglevel=error"
     ]
   }
 }
