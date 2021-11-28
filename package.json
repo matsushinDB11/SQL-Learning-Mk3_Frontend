@@ -20,6 +20,11 @@
     "typescript": "^4.1.2",
     "web-vitals": "^1.0.1"
   },
+  "devDependencies": {
+    "@craco/craco": "^6.3.0",
+    "@types/sql.js": "^1.4.3",
+    "@types/testing-library__jest-dom": "^5.14.1"
+  },
   "scripts": {
     "start": "craco start",
     "build": "craco build",
@@ -43,10 +48,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@craco/craco": "^6.3.0",
-    "@types/sql.js": "^1.4.3",
-    "@types/testing-library__jest-dom": "^5.14.1"
   }
 }
