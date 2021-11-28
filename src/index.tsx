@@ -4,14 +4,19 @@ import './styles/index.css';
 import App from './App';
 import SqlAnswer from './pages/SqlAnswer'
 import reportWebVitals from './reportWebVitals';
+import {StyledEngineProvider} from '@mui/material/styles';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <SqlAnswer/>
-    {/*<App />*/}
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+    <StyledEngineProvider injectFirst>
+        <SqlAnswer/>
+    </StyledEngineProvider>,
+// <React.StrictMode>
+//   {/*<App />*/}
+// </React.StrictMode>,
+// document.getElementById('root')
+    document.querySelector("#root")
+)
+;
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
