@@ -2,7 +2,7 @@ import { VFC } from 'react';
 import logo from './logo.svg';
 import './styles/App.css';
 
-const App: VFC = function App() {
+const App: VFC = () => {
     return (
         <div className="App">
             <header className="App-header">

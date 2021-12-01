@@ -4,15 +4,14 @@ module.exports = {
         "es2021": true
     },
     "extends": [
+        "eslint:recommended",
         "plugin:react/recommended",
-        "airbnb",
-        "airbnb/hooks",
-        "plugin:import/errors",
+        'plugin:import/errors',
         'plugin:import/warnings',
         'plugin:import/typescript',
-        'plugin:@typescript-eslint/recommended',
+        "plugin:@typescript-eslint/recommended",
         'plugin:@typescript-eslint/recommended-requiring-type-checking',
-        'prettier',
+        "prettier"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -20,31 +19,20 @@ module.exports = {
             "jsx": true
         },
         "ecmaVersion": 12,
-        project: "./tsconfig.eslint.json",
+        project: './tsconfig.eslint.json',
         "sourceType": "module",
         tsconfigRootDir: __dirname,
     },
     "plugins": [
-        "@typescript-eslint",
-        "import",
-        "jsx-a11y",
-        // 'prefer-arrow',
         "react",
+        "@typescript-eslint",
         "react-hooks",
     ],
-    root: true,
-    rules: {
+    "rules": {
         // occur error in `import React from 'react'` with react-scripts 4.0.1
         'no-use-before-define': 'off',
         '@typescript-eslint/no-use-before-define': [
             'error',
-        ],
-        'lines-between-class-members': [
-            'error',
-            'always',
-            {
-                exceptAfterSingleLine: true,
-            },
         ],
         'no-void': [
             'error',
@@ -80,28 +68,6 @@ module.exports = {
                 tsx: 'never',
             },
         ],
-        // 'prefer-arrow/prefer-arrow-functions': [
-        //     'error',
-        //     {
-        //         disallowPrototype: true,
-        //         singleReturnOnly: false,
-        //         classPropertiesAllowed: false,
-        //     },
-        // ],
-        'react/jsx-filename-extension': [
-            'error',
-            {
-                extensions: ['.jsx', '.tsx'],
-            },
-        ],
-        'react/jsx-props-no-spreading': [
-            'error',
-            {
-                html: 'enforce',
-                custom: 'enforce',
-                explicitSpread: 'ignore',
-            },
-        ],
         'react/react-in-jsx-scope': 'off',
     },
     overrides: [
@@ -113,10 +79,13 @@ module.exports = {
         },
     ],
     settings: {
+        react: {
+            "version": "detect"
+        },
         'import/resolver': {
             node: {
                 paths: ['src'],
-            },
-        },
-    },
+            }
+        }
+    }
 };
