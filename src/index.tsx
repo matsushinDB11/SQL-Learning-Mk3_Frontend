@@ -2,14 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/index.css';
 import { StyledEngineProvider } from '@mui/material/styles';
-// import App from './App';
-import SqlAnswer from './pages/SqlAnswer';
+import App from './App';
+// import SqlAnswer from './pages/SqlAnswer';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(
-    <StyledEngineProvider injectFirst>
-        <SqlAnswer />
-    </StyledEngineProvider>,
+    <BrowserRouter>
+        <StyledEngineProvider injectFirst>
+            <App />
+        </StyledEngineProvider>
+        ,
+    </BrowserRouter>,
     // <React.StrictMode>
     //   {/*<App />*/}
     // </React.StrictMode>,

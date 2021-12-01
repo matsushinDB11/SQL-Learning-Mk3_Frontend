@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from "react";
-import initSqlJs from "sql.js";
-import '../styles/SqlAnswer.css'
+import React, { useState, useEffect } from 'react';
+import initSqlJs from 'sql.js';
+import '../styles/SqlAnswer.css';
 import {
     Container,
     Paper,
@@ -11,13 +11,13 @@ import {
     TableContainer,
     TableHead,
     TableRow,
-    TextField
-} from "@mui/material";
+    TextField,
+} from '@mui/material';
 
 // Required to let webpack 4 know it needs to copy the wasm file to our assets
-import sqlWasm from "sql.js/dist/sql-wasm.wasm";
+import sqlWasm from 'sql.js/dist/sql-wasm.wasm';
 
-export default function App() {
+export default function SqlAnswer() {
     const [db, setDb] = useState(null);
     const [error, setError] = useState(null);
 
@@ -27,26 +27,30 @@ export default function App() {
             // without any configuration, initSqlJs will fetch the wasm files directly from the same path as the js
             // see ../craco.config.js
             try {
-                const SQL = await initSqlJs({locateFile: () => sqlWasm});
-                const dbStorage = await fetch("./database1.sqlite3")
-                setDb(new SQL.Database(new Uint8Array((await dbStorage.arrayBuffer()))));
+                const SQL = await initSqlJs({ locateFile: () => sqlWasm });
+                const dbStorage = await fetch('./database1.sqlite3');
+                setDb(
+                    new SQL.Database(
+                        new Uint8Array(await dbStorage.arrayBuffer()),
+                    ),
+                );
             } catch (err) {
                 setError(err);
             }
-        }
+        };
         fetchData();
     }, []);
 
     if (error) return <pre>{error.toString()}</pre>;
     else if (!db) return <pre>Loading...</pre>;
-    else return <SQLRepl db={db}/>;
+    else return <SQLRepl db={db} />;
 }
 
 /**
  * A simple SQL read-eval-print-loop
  * @param {{db: import("sql.js").Database}} props
  */
-function SQLRepl({db}) {
+function SQLRepl({ db }) {
     const [error, setError] = useState(null);
     const [results, setResults] = useState([]);
     const [sql, setSql] = useState(null);
@@ -74,20 +78,18 @@ function SQLRepl({db}) {
                     multiline
                     fullWidth
                 />
-                <Button variant="contained"
-                        onClick={() => exec(sql)}
-                >
+                <Button variant="contained" onClick={() => exec(sql)}>
                     実行
                 </Button>
-                <pre className="error">{(error || "").toString()}</pre>
+                <pre className="error">{(error || '').toString()}</pre>
             </Container>
 
-        {
-            // results contains one object per select statement in the query
-            results.map(({columns, values}, i) => (
-                <ResultsTable key={i} columns={columns} values={values}/>
-            ))
-        }
+            {
+                // results contains one object per select statement in the query
+                results.map(({ columns, values }, i) => (
+                    <ResultsTable key={i} columns={columns} values={values} />
+                ))
+            }
         </div>
     );
 }
@@ -96,11 +98,11 @@ function SQLRepl({db}) {
  * Renders a single value of the array returned by db.exec(...) as a table
  * @param {import("sql.js").QueryExecResult} props
  */
-function ResultsTable({columns, values}) {
+function ResultsTable({ columns, values }) {
     return (
         <Container>
             <TableContainer component={Paper}>
-                <Table sx={{minWidth: 650, maxWidth: 1500}} aria-label="">
+                <Table sx={{ minWidth: 650, maxWidth: 1500 }} aria-label="">
                     <TableHead>
                         <TableRow>
                             {columns.map((columnName, i) => (
