@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "@craco/craco": "^6.4.2",
+    "@openapitools/openapi-generator-cli": "^2.4.18",
     "@testing-library/user-event": "^13.5.0",
     "@types/eslint": "^8.2.0",
     "@types/jest": "^27.0.3",
@@ -45,7 +46,8 @@
     "test": "craco test",
     "eject": "craco eject",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
-    "lint:fix": "eslint --fix 'src/**/*.{js,jsx,ts,tsx}'"
+    "lint:fix": "eslint --fix 'src/**/*.{js,jsx,ts,tsx}'",
+    "apitype": "openapi-generator-cli generate -g typescript-axios -i https://raw.githubusercontent.com/matsushinDB11/SQL-Larning-Mk3_backend/main/swagger.json -o src/api"
   },
   "eslintConfig": {
     "extends": [
