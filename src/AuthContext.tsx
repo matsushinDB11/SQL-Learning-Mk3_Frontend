@@ -6,7 +6,7 @@ import {
     useState,
 } from 'react';
 
-export type loginState = 'signin' | 'signout' | '';
+type loginState = 'signin' | 'signout' | '';
 
 interface LoginInfo {
     state: loginState;
@@ -55,3 +55,4 @@ const AuthProvider = (props: Props) => {
 };
 
 export { useAuthContext, AuthProvider };
+export type { loginState, LoginInfo };
