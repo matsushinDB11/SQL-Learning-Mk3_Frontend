@@ -6,8 +6,6 @@ import GoogleLogin, {
 } from 'react-google-login';
 import Config from '../config';
 
-console.log(Config.GoogleClientID);
-
 const Success: () => void = () => {
     console.log('Login Success');
 };
