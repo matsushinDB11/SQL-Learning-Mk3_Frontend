@@ -1,11 +1,31 @@
 import { VFC } from 'react';
-import { Button, Container } from '@mui/material';
+import { Container } from '@mui/material';
+import GoogleLogin, {
+    GoogleLoginResponse,
+    GoogleLoginResponseOffline,
+} from 'react-google-login';
+import Config from '../config';
+
+console.log(Config.GoogleClientID);
+
+const Success: () => void = () => {
+    console.log('Login Success');
+};
+
+const Failure = (
+    response: GoogleLoginResponse | GoogleLoginResponseOffline,
+) => {
+    console.log(response);
+};
 
 const Login: VFC = () => (
     <Container sx={{ margin: 2 }}>
-        <Button variant="contained" sx={{ width: 400, height: 50 }}>
-            Login
-        </Button>
+        <GoogleLogin
+            clientId={Config.GoogleClientID}
+            buttonText="Login"
+            onSuccess={Success}
+            onFailure={Failure}
+        />
     </Container>
 );
 
