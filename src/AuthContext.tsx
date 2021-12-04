@@ -1,4 +1,10 @@
-import { createContext, ReactNode, useEffect, useState } from 'react';
+import {
+    createContext,
+    Dispatch,
+    ReactNode,
+    useContext,
+    useState,
+} from 'react';
 
 export type loginState = 'signin' | 'signout' | '';
 
@@ -9,37 +15,43 @@ interface LoginInfo {
     isAdmin: boolean;
 }
 
-type Props = {
-    children?: ReactNode;
-};
-
-const AuthContext = createContext<LoginInfo>({
+const initialLoginInfo: LoginInfo = {
     state: '',
     userid: 0,
     email: '',
     isAdmin: false,
+};
+
+type LoginState = {
+    loginState: LoginInfo | undefined;
+    setLoginState: Dispatch<LoginInfo> | undefined;
+};
+
+const AuthContext = createContext<LoginState>({
+    loginState: undefined,
+    setLoginState: undefined,
 });
 
+const useAuthContext = () => {
+    return useContext<LoginState>(AuthContext);
+};
+
+type Props = {
+    children?: ReactNode;
+};
+
 const AuthProvider = (props: Props) => {
-    const [loginState, setLoginState] = useState<loginState>('');
-    useEffect(() => {
-        // TODO ログイン状態の変更を検知してセットする
-        setLoginState('');
-    });
+    const [loginState, setLoginState] = useState<LoginInfo>(initialLoginInfo);
+    const state: LoginState = {
+        loginState,
+        setLoginState,
+    };
 
     return (
-        <AuthContext.Provider
-            value={{
-                // TODO ログインしたユーザーの情報をセット
-                state: loginState,
-                userid: 1,
-                email: '',
-                isAdmin: false,
-            }}
-        >
+        <AuthContext.Provider value={state}>
             {props.children}
         </AuthContext.Provider>
     );
 };
 
-export { AuthContext, AuthProvider };
+export { useAuthContext, AuthProvider };
