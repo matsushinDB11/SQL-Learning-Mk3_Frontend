@@ -3,13 +3,16 @@ import './styles/App.css';
 import { Route, Switch } from 'react-router-dom';
 import Login from './pages/login';
 import SqlAnswer from './pages/SqlAnswer';
+import { AuthProvider } from './context/AuthContext';
 
 const App: VFC = () => {
     return (
         <>
             <Switch>
-                <Route exact path="/" component={Login} />
-                <Route path="/answer" component={SqlAnswer} />
+                <AuthProvider>
+                    <Route exact path="/" component={Login} />
+                    <Route path="/answer" component={SqlAnswer} />
+                </AuthProvider>
             </Switch>
         </>
     );
