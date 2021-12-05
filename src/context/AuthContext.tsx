@@ -10,30 +10,28 @@ type loginState = 'signin' | 'signout' | '';
 
 interface LoginInfo {
     state: loginState;
-    userid: number;
     email: string;
     isAdmin: boolean;
 }
 
 const initialLoginInfo: LoginInfo = {
     state: '',
-    userid: 0,
     email: '',
     isAdmin: false,
 };
 
-type LoginState = {
-    loginState: LoginInfo | undefined;
-    setLoginState: Dispatch<LoginInfo> | undefined;
+type TAuthContext = {
+    loginState: LoginInfo;
+    setLoginState: Dispatch<LoginInfo>;
 };
 
-const AuthContext = createContext<LoginState>({
-    loginState: undefined,
-    setLoginState: undefined,
-});
+const AuthContext = createContext<TAuthContext | undefined>(undefined);
 
 const useAuthContext = () => {
-    return useContext<LoginState>(AuthContext);
+    const context = useContext<TAuthContext | undefined>(AuthContext);
+    if (context === undefined) throw new Error('context is undefined');
+
+    return context;
 };
 
 type Props = {
@@ -42,7 +40,7 @@ type Props = {
 
 const AuthProvider = (props: Props) => {
     const [loginState, setLoginState] = useState<LoginInfo>(initialLoginInfo);
-    const state: LoginState = {
+    const state: TAuthContext = {
         loginState,
         setLoginState,
     };
