@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import Login from './pages/login';
 import SqlAnswer from './pages/SqlAnswer';
 import { AuthProvider } from './context/AuthContext';
+import QuestionsList from './pages/questionsList';
 
 const App: VFC = () => {
     return (
@@ -12,6 +13,7 @@ const App: VFC = () => {
                 <AuthProvider>
                     <Route exact path="/" component={Login} />
                     <Route path="/answer" component={SqlAnswer} />
+                    <Route path="/questions" component={QuestionsList} />
                 </AuthProvider>
             </Switch>
         </>

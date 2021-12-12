@@ -13,4 +13,4 @@ type TGetQuestionsList = {
     questions: TGetQuestionForList[];
 };
 
-export type { TPostIdToken, TGetQuestionsList };
+export type { TPostIdToken, TGetQuestionsList, TGetQuestionForList };

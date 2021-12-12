@@ -17,15 +17,16 @@ const QuestionsList: VFC = () => {
     });
     const [error, setError] = useState<error>('');
     useEffect(() => {
-        void (async () => {
+        const callApi = async () => {
             const questionsData = await getQuestionsList();
             if (questionsData.isFailure()) {
                 setError('apiError');
             } else {
                 setQuestionsList(questionsData.value);
             }
-        })().then();
-    }, [error, questionsList]);
+        };
+        void callApi();
+    }, []);
     if (error == 'apiError') return <ApiError />;
     const questionsListRender = questionsList.questions.map((value, key) => (
         <ListItemText key={key} primary={value.title} />
