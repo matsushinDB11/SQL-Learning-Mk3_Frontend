@@ -1,7 +1,13 @@
 import { useEffect, useState, VFC } from 'react';
 import { getQuestionsList } from '../api/questions';
 import { TGetQuestionsList } from '../api/apiType';
-import { Container, List, ListItemText } from '@mui/material';
+import {
+    Container,
+    Divider,
+    List,
+    ListItem,
+    ListItemText,
+} from '@mui/material';
 
 type error = 'apiError' | '';
 
@@ -29,7 +35,12 @@ const QuestionsList: VFC = () => {
     }, []);
     if (error == 'apiError') return <ApiError />;
     const questionsListRender = questionsList.questions.map((value, key) => (
-        <ListItemText key={key} primary={value.title} />
+        <>
+            <ListItem key={key} alignItems="flex-start">
+                <ListItemText primary={value.title} />
+            </ListItem>
+            <Divider variant="inset" component="li" />
+        </>
     ));
 
     return (
@@ -37,10 +48,11 @@ const QuestionsList: VFC = () => {
             <List
                 sx={{
                     width: '100%',
-                    maxWidth: 360,
+                    maxWidth: 1000,
                     bgcolor: 'background.paper',
                 }}
             >
+                <Divider variant="inset" component="li" />
                 {questionsListRender}
             </List>
         </Container>
