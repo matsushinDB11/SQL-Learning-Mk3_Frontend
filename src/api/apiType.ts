@@ -4,4 +4,13 @@ type TPostIdToken = {
     id_token: string;
 };
 
-export type { TPostIdToken };
+type TGetQuestionForList = {
+    ID: number;
+    title: string;
+};
+
+type TGetQuestionsList = {
+    questions: TGetQuestionForList[];
+};
+
+export type { TPostIdToken, TGetQuestionsList };
