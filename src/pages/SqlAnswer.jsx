@@ -19,7 +19,6 @@ import sqlWasm from 'sql.js/dist/sql-wasm.wasm';
 
 export default function SqlAnswer() {
     const [db, setDb] = useState(null);
-    // const [schemaDb, setSchemaDb] = useState(null);
     const [error, setError] = useState(null);
     const fetchData = async () => {
         // sql.js needs to fetch its wasm file, so we cannot immediately instantiate the database
@@ -30,9 +29,6 @@ export default function SqlAnswer() {
             const dbStorage = await fetch('./database1.sqlite3');
             const bufferedDb = new Uint8Array(await dbStorage.arrayBuffer());
             setDb(new SQL.Database(bufferedDb));
-            // setSchemaDb(
-            //     new SQL.Database(bufferedDb),
-            // )
         } catch (err) {
             setError(err);
         }
