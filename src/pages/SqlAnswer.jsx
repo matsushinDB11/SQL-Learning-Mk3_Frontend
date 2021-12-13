@@ -19,31 +19,38 @@ import sqlWasm from 'sql.js/dist/sql-wasm.wasm';
 
 export default function SqlAnswer() {
     const [db, setDb] = useState(null);
+    // const [schemaDb, setSchemaDb] = useState(null);
     const [error, setError] = useState(null);
-
+    const fetchData = async () => {
+        // sql.js needs to fetch its wasm file, so we cannot immediately instantiate the database
+        // without any configuration, initSqlJs will fetch the wasm files directly from the same path as the js
+        // see ../craco.config.js
+        try {
+            const SQL = await initSqlJs({ locateFile: () => sqlWasm });
+            const dbStorage = await fetch('./database1.sqlite3');
+            const bufferedDb = new Uint8Array(await dbStorage.arrayBuffer());
+            setDb(new SQL.Database(bufferedDb));
+            // setSchemaDb(
+            //     new SQL.Database(bufferedDb),
+            // )
+        } catch (err) {
+            setError(err);
+        }
+    };
     useEffect(() => {
-        const fetchData = async () => {
-            // sql.js needs to fetch its wasm file, so we cannot immediately instantiate the database
-            // without any configuration, initSqlJs will fetch the wasm files directly from the same path as the js
-            // see ../craco.config.js
-            try {
-                const SQL = await initSqlJs({ locateFile: () => sqlWasm });
-                const dbStorage = await fetch('./database1.sqlite3');
-                setDb(
-                    new SQL.Database(
-                        new Uint8Array(await dbStorage.arrayBuffer()),
-                    ),
-                );
-            } catch (err) {
-                setError(err);
-            }
-        };
         fetchData();
     }, []);
 
     if (error) return <pre>{error.toString()}</pre>;
     else if (!db) return <pre>Loading...</pre>;
-    else return <SQLRepl db={db} />;
+    else {
+        return (
+            <>
+                <SQLRepl db={db} />
+                <TableSchema db={db} />
+            </>
+        );
+    }
 }
 
 /**
@@ -91,6 +98,33 @@ function SQLRepl({ db }) {
         </div>
     );
 }
+
+const TableSchema = ({ db }) => {
+    const [error, setError] = useState(null);
+    const [results, setResults] = useState([]);
+    const exec = () => {
+        const tableSchema = 'select * from sqlite_master;';
+        try {
+            setResults(db.exec(tableSchema)); // an array of objects is returned
+            setError(null);
+        } catch (err) {
+            // exec throws an error when the SQL statement is invalid
+            setError(err);
+            setResults([]);
+        }
+    };
+    useEffect(() => {
+        exec();
+    }, []);
+    return (
+        <div>
+            <pre className="error">{(error || '').toString()}</pre>
+            {results.map(({ columns, values }, i) => (
+                <ResultsTable key={i} columns={columns} values={values} />
+            ))}
+        </div>
+    );
+};
 
 /**
  * Renders a single value of the array returned by db.exec(...) as a table
