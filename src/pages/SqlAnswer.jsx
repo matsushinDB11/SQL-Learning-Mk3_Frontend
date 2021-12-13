@@ -42,6 +42,9 @@ export default function SqlAnswer() {
     else {
         return (
             <>
+                <Container>
+                    <h2>employees テーブルの中身を全て取得せよ</h2>
+                </Container>
                 <SQLRepl db={db} />
                 <TableSchema db={db} />
             </>
