@@ -45,6 +45,7 @@ const QuestionsList: VFC = () => {
 
     return (
         <Container>
+            <h2>問題一覧</h2>
             <List
                 sx={{
                     width: '100%',
