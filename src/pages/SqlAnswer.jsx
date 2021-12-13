@@ -70,8 +70,6 @@ function SQLRepl({ db }) {
 
     return (
         <div className="App">
-            <h1>SQL Learning React</h1>
-
             <Container>
                 <TextField
                     onChange={(e) => setSql(e.target.value)}
