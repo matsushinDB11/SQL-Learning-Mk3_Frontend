@@ -1,5 +1,5 @@
 import api from './axiosConfig';
-import { TGetQuestionsList } from './apiType';
+import { TGetQuestionsList } from './apiTypes';
 import { Failure, Result, Success } from '../errorHelper/resultTypes';
 import { ApiError } from '../errorHelper/errors';
 

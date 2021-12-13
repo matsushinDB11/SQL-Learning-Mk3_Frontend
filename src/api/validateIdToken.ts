@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { TPostIdToken } from './apiType';
+import { TPostIdToken } from './apiTypes';
 import Config from '../config';
 import { Failure, Result, Success } from '../errorHelper/resultTypes';
 import { ApiError } from '../errorHelper/errors';

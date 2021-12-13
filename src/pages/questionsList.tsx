@@ -1,6 +1,6 @@
 import { useEffect, useState, VFC } from 'react';
 import { getQuestionsList } from '../api/questions';
-import { TGetQuestionsList } from '../api/apiType';
+import { TGetQuestionsList } from '../api/apiTypes';
 import {
     Container,
     Divider,
