@@ -14,8 +14,11 @@ const App: VFC = () => {
                 <AuthProvider>
                     <Header />
                     <Route exact path="/" component={Login} />
-                    <Route path="/answer" component={SqlAnswer} />
-                    <Route path="/questions" component={QuestionsList} />
+                    <Route exact path="/questions" component={QuestionsList} />
+                    <Route
+                        path="/questions/:questionId"
+                        component={SqlAnswer}
+                    />
                 </AuthProvider>
             </Switch>
         </>
