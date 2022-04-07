@@ -1,13 +1,8 @@
 import { useEffect, useState, VFC } from 'react';
 import { getQuestionsList } from '../api/questions';
 import { TGetQuestionsList } from '../api/apiTypes';
-import {
-    Container,
-    Divider,
-    List,
-    ListItem,
-    ListItemText,
-} from '@mui/material';
+import { Container, Divider, List, ListItem } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 type error = 'apiError' | '';
 
@@ -37,7 +32,7 @@ const QuestionsList: VFC = () => {
     const questionsListRender = questionsList.questions.map((value, key) => (
         <>
             <ListItem key={key} alignItems="flex-start">
-                <ListItemText primary={value.title} />
+                <Link to={`/questions/${value.ID}`}>{value.title}</Link>
             </ListItem>
             <Divider variant="inset" component="li" />
         </>
