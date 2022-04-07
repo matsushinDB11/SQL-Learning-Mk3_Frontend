@@ -29,9 +29,9 @@ const QuestionsList: VFC = () => {
         void callApi();
     }, []);
     if (error == 'apiError') return <ApiError />;
-    const questionsListRender = questionsList.questions.map((value, key) => (
+    const questionsListRender = questionsList.questions.map((value) => (
         <>
-            <ListItem key={key} alignItems="flex-start">
+            <ListItem alignItems="flex-start">
                 <Link to={`/questions/${value.ID}`}>{value.title}</Link>
             </ListItem>
             <Divider variant="inset" component="li" />
