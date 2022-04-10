@@ -1,6 +1,8 @@
 # SQL-Learning-Mk3 Webfront
 SQL-Learning-Mk2 のReactリプレイス版  
-開発中
+開発中  
+
+サーバーサイドリポジトリ: https://github.com/matsushinDB11/SQL-Learning-Mk3_backend
 
 ## Getting Started with Create React App
 
