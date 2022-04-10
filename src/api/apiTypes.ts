@@ -13,4 +13,16 @@ type TGetQuestionsList = {
     questions: TGetQuestionForList[];
 };
 
-export type { TPostIdToken, TGetQuestionsList, TGetQuestionForList };
+type TGetQuestion = {
+    ID: number;
+    title: string;
+    classID: number;
+    sqliteBase64: string;
+};
+
+export type {
+    TPostIdToken,
+    TGetQuestionsList,
+    TGetQuestionForList,
+    TGetQuestion,
+};
