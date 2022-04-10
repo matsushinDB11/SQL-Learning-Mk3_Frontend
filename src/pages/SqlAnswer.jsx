@@ -52,6 +52,33 @@ export default function SqlAnswer() {
     }
 }
 
+const TableSchema = ({ db }) => {
+    const [error, setError] = useState(null);
+    const [results, setResults] = useState([]);
+    const exec = () => {
+        const tableSchema = 'select * from sqlite_master;';
+        try {
+            setResults(db.exec(tableSchema)); // an array of objects is returned
+            setError(null);
+        } catch (err) {
+            // exec throws an error when the SQL statement is invalid
+            setError(err);
+            setResults([]);
+        }
+    };
+    useEffect(() => {
+        exec();
+    }, []);
+    return (
+        <div>
+            <pre className="error">{(error || '').toString()}</pre>
+            {results.map(({ columns, values }, i) => (
+                <ResultsTable key={i} columns={columns} values={values} />
+            ))}
+        </div>
+    );
+};
+
 /**
  * A simple SQL read-eval-print-loop
  * @param {{db: import("sql.js").Database}} props
@@ -97,33 +124,6 @@ function SQLRepl({ db }) {
         </div>
     );
 }
-
-const TableSchema = ({ db }) => {
-    const [error, setError] = useState(null);
-    const [results, setResults] = useState([]);
-    const exec = () => {
-        const tableSchema = 'select * from sqlite_master;';
-        try {
-            setResults(db.exec(tableSchema)); // an array of objects is returned
-            setError(null);
-        } catch (err) {
-            // exec throws an error when the SQL statement is invalid
-            setError(err);
-            setResults([]);
-        }
-    };
-    useEffect(() => {
-        exec();
-    }, []);
-    return (
-        <div>
-            <pre className="error">{(error || '').toString()}</pre>
-            {results.map(({ columns, values }, i) => (
-                <ResultsTable key={i} columns={columns} values={values} />
-            ))}
-        </div>
-    );
-};
 
 /**
  * Renders a single value of the array returned by db.exec(...) as a table
