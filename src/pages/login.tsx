@@ -12,7 +12,7 @@ const Login: VFC = () => {
     const history = useHistory();
     const Success: () => void = () => {
         console.log('Login Success');
-        history.push('/answer');
+        history.push('/questions');
     };
     const Failure = (
         response: GoogleLoginResponse | GoogleLoginResponseOffline,
